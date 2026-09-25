@@ -1,9 +1,9 @@
 /**
- * Blind Review (Jev) — semantic code focus for VS Code.
+ * Blind Review (Jev): semantic code focus for VS Code.
  *
  * Scores every ~5-line leaf of a binary split of the file via Jev
  * ("how valuable is inspecting this region to understand this file?"),
- * then fades the buffer with real CSS opacity — syntax colors are
+ * then fades the buffer with real CSS opacity; syntax colors are
  * preserved, only their salience changes.  The region under the cursor
  * is revealed automatically (the hover equivalent of IDEA.md).
  *
@@ -138,7 +138,7 @@ class BlindReviewSession {
         const deco = {
           range: this.regionRange(editor.document, r),
           hoverMessage:
-            (r.estimated ? "≈ p estimated from parent region — " : "") +
+            (r.estimated ? "≈ p estimated from parent region: " : "") +
             `review priority ${(r.p).toFixed(2)} (opacity ${band.label})`,
         };
         const i = BANDS.indexOf(band);
@@ -184,7 +184,7 @@ function activate(context) {
       const script = scriptPath();
       if (!fs.existsSync(script)) {
         vscode.window.showErrorMessage(
-          `Blind Review: review.py not found (${script}) — set "blindreview.scriptPath"`
+          `Blind Review: review.py not found (${script}): set "blindreview.scriptPath"`
         );
         return;
       }
@@ -301,7 +301,7 @@ function activate(context) {
     async () => {
       if (!session.regions.length) {
         vscode.window.showInformationMessage(
-          "Blind Review: nothing scored yet — run Score & Fade Buffer"
+          "Blind Review: nothing scored yet: run Score & Fade Buffer"
         );
         return;
       }
@@ -315,7 +315,7 @@ function activate(context) {
           region: r,
         }));
       const pick = await vscode.window.showQuickPick(items, {
-        placeHolder: "Regions by review priority — pick one to jump to it",
+        placeHolder: "Regions by review priority: pick one to jump to it",
       });
       if (pick && editor) {
         const range = session.regionRange(editor.document, pick.region);
@@ -333,7 +333,7 @@ function activate(context) {
   });
 
   const onDocChange = vscode.workspace.onDidChangeTextDocument((e) => {
-    // buffer changed since scoring: line ranges may drift — fade stale
+    // buffer changed since scoring: line ranges may drift: fade stale
     if (session.regions.length && e.document === vscode.window.activeTextEditor?.document) {
       session.setStatus("blind-review: stale (re-run to re-score)");
     }

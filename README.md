@@ -1,4 +1,4 @@
-# JevCodeReview — Blind Review
+# JevCodeReview: Blind Review
 
 ![Blind Review banner](assets/banner.svg)
 
@@ -10,22 +10,22 @@ everything else by real opacity.
 
 ## The core algorithm
 
-**1. Split — build a binary tree over the file.**
+**1. Split: build a binary tree over the file.**
 The file's line range `[1, N]` is recursively bisected until leaves are
 ≤ 5 lines. Result: a binary tree whose leaves are small code regions.
 
-**2. Map — Jev judges each leaf.**
+**2. Map: Jev judges each leaf.**
 Every leaf is scored in parallel (32 workers) by one bounded Jev call each:
 
 > *"How valuable is it for a human reviewer to inspect this region in
 > order to understand the behavior and correctness of this file?"*
 
 conditioned on the chunk, a compressed file outline, and your **intent**
-(why you're reading — e.g. "understand the core function", "find likely
+(why you're reading, e.g. "understand the core function", "find likely
 bugs"). Jev returns a 0–4 ordinal, mapped to a probability `p = score/4`.
 
-**3. Reduce — noisy-OR up the tree.**
-A region deserves inspection iff *some* line inside it does — a union of
+**3. Reduce: noisy-OR up the tree.**
+A region deserves inspection iff *some* line inside it does: a union of
 events:
 
 $$P(\text{inspect region}) = 1 - \prod_{c \in \text{children}} (1 - p_c)$$
@@ -33,13 +33,13 @@ $$P(\text{inspect region}) = 1 - \prod_{c \in \text{children}} (1 - p_c)$$
 Key property: `p_parent ≥ p_child`, making every node's score an
 **admissible upper bound** on its subtree.
 
-**4. Select — branch-and-bound.**
+**4. Select: branch-and-bound.**
 Best-first expansion from the root: only expand nodes whose bound could
 still beat the current k-th-best leaf. With a `budget` cap, the top
-regions are found with far fewer Jev calls than scoring every leaf —
+regions are found with far fewer Jev calls than scoring every leaf:
 provably, because bounds never underestimate.
 
-**5. Contrast — display only.**
+**5. Contrast: display only.**
 Probabilities are stretched in logit space around the file's own baseline
 `p₀ = mean(p)`:
 
@@ -60,7 +60,7 @@ Bands of `p'` map to opacity:
 | 0.60–0.80 | 80% |
 | ≥ 0.80 | 100% (sharp) |
 
-VS Code / Emacs fade via decorations / overlays with **real opacity** —
+VS Code / Emacs fade via decorations / overlays with **real opacity**:
 syntax colors are preserved, only salience changes. The region under the
 cursor is revealed automatically (hover-to-restore).
 
@@ -129,4 +129,4 @@ clears.
 - Jev's score scale is 0–4, sometimes fractional; the map step clamps.
 - Scoring is stochastic; the noisy-OR tree + contrast stretch keeps the
   *relative* fade pattern stable across runs.
-- Editing after scoring marks the fade stale (VS Code) — re-run to re-score.
+- Editing after scoring marks the fade stale (VS Code); re-run to re-score.

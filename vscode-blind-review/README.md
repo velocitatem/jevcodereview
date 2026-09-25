@@ -1,9 +1,9 @@
-# Blind Review (Jev) — VS Code
+# Blind Review (Jev): VS Code
 
 Semantic code focus, per IDEA.md: Jev scores every ~5-line leaf of a
-binary split of the file — *"how valuable is it for a human reviewer to
+binary split of the file: *"how valuable is it for a human reviewer to
 inspect this region to understand the behavior and correctness of this
-file?"* — and the editor fades everything else with **real opacity**
+file?"* -- and the editor fades everything else with **real opacity**
 (syntax colors are preserved; only their salience changes).
 
 ## Requirements
@@ -16,12 +16,12 @@ file?"* — and the editor fades everything else with **real opacity**
 
 | Command | Key | What it does |
 |---|---|---|
-| `Blind Review: Score & Fade Buffer` | `ctrl+alt+b` | prompts for your **intent** (why you're reading — conditions the judgment), runs the pipeline, fades the buffer |
+| `Blind Review: Score & Fade Buffer` | `ctrl+alt+b` | prompts for your **intent** (why you're reading, conditioning the judgment), runs the pipeline, fades the buffer |
 | `Blind Review: Toggle Reveal All` | `ctrl+alt+r` | lift/re-apply all fading |
 | `Blind Review: Clear Fading` | `ctrl+alt+shift+b` | remove all fading |
 
 The region under the cursor is **revealed automatically** (IDEA.md's
-hover-to-restore). Fading marks itself *stale* when you edit the file —
+hover-to-restore). Fading marks itself *stale* when you edit the file:
 re-run to re-score.
 
 ## Settings

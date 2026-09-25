@@ -1,19 +1,19 @@
-"""Semantic code focus — map/reduce prototype (see IDEA.md).
+"""Semantic code focus: map/reduce prototype (see IDEA.md).
 
 Instead of scoring fixed 5-line windows independently, the file is split
 recursively in half (binary tree over lines) and priorities are computed
 in two phases:
 
-  MAP    — leaves (<= CHUNK lines) are scored by Jev; the ordinal answer
+  MAP    : leaves (<= CHUNK lines) are scored by Jev; the ordinal answer
            1..5 is mapped to a probability  p = (s - 1)/4.
 
-  REDUCE — internal nodes aggregate their children with the noisy-OR:
+  REDUCE : internal nodes aggregate their children with the noisy-OR:
 
              P(inspect region) = 1 - prod(1 - p_child)
 
            "a region deserves inspection iff *some* line in it does."
            This guarantees  p_parent >= p_child  for every child, which
-           makes node scores admissible upper bounds — so with --budget
+           makes node scores admissible upper bounds, so with --budget
            we can run branch-and-bound: expand the most promising node
            first and provably find the top regions without querying Jev
            on every leaf.

@@ -3,7 +3,7 @@
 ;; Blind-review the current buffer: every ~5-line leaf of a binary split
 ;; of the file is scored by Jev ("how valuable is inspecting this region
 ;; to understand this file?"), aggregated with noisy-OR up the tree, and
-;; the buffer is then dimmed — low-priority regions fade, high-priority
+;; the buffer is then dimmed: low-priority regions fade, high-priority
 ;; regions stay sharp.  This is the editor front-end of IDEA.md.
 
 ;; Usage:
@@ -248,7 +248,7 @@ the fixed fallback face."
   (setq blind-review--regions regions)
   (blind-review--apply-faces regions)
   (blind-review-mode 1)
-  (message "blind-review: faded %d regions — C-c C-r reveal, C-c C-f all, C-c C-k clear"
+  (message "blind-review: faded %d regions: C-c C-r reveal, C-c C-f all, C-c C-k clear"
            (length regions)))
 
 (defun blind-review--reveal-at-point ()
@@ -271,12 +271,12 @@ the fixed fallback face."
         (dolist (ov blind-review--overlays)
           (when (overlayp ov) (delete-overlay ov)))
         (setq blind-review--overlays nil)
-        (message "blind-review: revealed — C-c C-f to fade again"))
+        (message "blind-review: revealed; C-c C-f to fade again"))
     (if blind-review--regions
         (progn
           (blind-review--apply-faces blind-review--regions)
           (message "blind-review: faded again"))
-      (message "blind-review: nothing to re-fade — run M-x blind-review first"))))
+      (message "blind-review: nothing to re-fade: run M-x blind-review first"))))
 
 ;; ------------------------------------------------------------- scoring
 
