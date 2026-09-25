@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace">
+  <defs>
+    <clipPath id="codeclip"><rect x="40" y="130" width="800" height="260" rx="10"/></clipPath>
+    <linearGradient id="pop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7ee787" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#7ee787" stop-opacity="0.12"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="880" height="420" rx="14" fill="#0d1117"/>
+  <text x="440" y="42" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="600" font-family="-apple-system, 'Segoe UI', sans-serif">Blind Review — attention allocation for AI-written code</text>
+  <text x="440" y="66" text-anchor="middle" fill="#8b949e" font-size="12" font-family="-apple-system, 'Segoe UI', sans-serif">Jev scores which regions deserve your attention · everything else fades</text>
+
+  <!-- user prompt bubble -->
+  <circle cx="78" cy="97" r="14" fill="#238636"/>
+  <text x="78" y="102" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700" font-family="-apple-system, sans-serif">you</text>
+  <rect x="102" y="82" width="212" height="30" rx="15" fill="#21262d" stroke="#30363d"/>
+  <text x="118" y="101" fill="#e6edf3" font-size="13">show core algorithm</text>
+
+  <!-- editor panel -->
+  <rect x="40" y="130" width="800" height="260" rx="10" fill="#161b22" stroke="#30363d"/>
+  <circle cx="62" cy="148" r="5" fill="#f85149"/><circle cx="80" cy="148" r="5" fill="#d29922"/><circle cx="98" cy="148" r="5" fill="#3fb950"/>
+  <text x="820" y="152" text-anchor="end" fill="#8b949e" font-size="11" font-family="-apple-system, sans-serif">intent: show core algorithm</text>
+
+  <!-- line grid: baseline spacing 22, first baseline y=184 -->
+  <g clip-path="url(#codeclip)" font-size="13">
+    <!-- 184, 202: imports — p≈0.06 → opacity 0.25 -->
+    <g fill="#c9d1d9" opacity="0.25">
+      <text x="64" y="184">import json, math</text>
+      <text x="64" y="202">import requests</text>
+    </g>
+
+    <!-- 220, 238: split — p≈0.3 → opacity 0.4 -->
+    <g opacity="0.4">
+      <text x="64" y="220"><tspan fill="#79c0ff">def</tspan> <tspan fill="#c9d1d9">binary_split(lines):</tspan></text>
+      <text x="88" y="238" fill="#c9d1d9">mid = (lo + hi) // 2</text>
+    </g>
+
+    <!-- 256: map — p≈0.55 → opacity 0.6 -->
+    <g opacity="0.6">
+      <text x="64" y="256"><tspan fill="#79c0ff">def</tspan> <tspan fill="#c9d1d9">map_jev_scores(leaves, intent):</tspan></text>
+    </g>
+
+    <!-- 274, 292: reduce — p≥0.8 → sharp + highlight -->
+    <rect x="40" y="262" width="800" height="40" fill="url(#pop)"/>
+    <g>
+      <text x="64" y="274"><tspan fill="#79c0ff" font-weight="700">def</tspan> <tspan fill="#c9d1d9" font-weight="700">noisy_or_reduce(tree):</tspan></text>
+      <text x="330" y="274" fill="#3fb950" font-weight="700">← inspect</text>
+      <text x="88" y="292" fill="#c9d1d9" font-weight="700">1 - math.prod(1 - p <tspan fill="#79c0ff">for</tspan> c <tspan fill="#79c0ff">in</tspan> children)</text>
+    </g>
+
+    <!-- 310: budget — p≈0.25 → opacity 0.35 -->
+    <g opacity="0.35">
+      <text x="64" y="310"><tspan fill="#79c0ff">def</tspan> <tspan fill="#c9d1d9">branch_and_bound(heap, k):</tspan></text>
+    </g>
+
+    <!-- 328: select — p≥0.9 → sharp -->
+    <rect x="40" y="316" width="800" height="20" fill="url(#pop)"/>
+    <g>
+      <text x="64" y="328"><tspan fill="#ffa657" font-weight="700">while</tspan> <tspan fill="#c9d1d9" font-weight="700">bound &gt;= kth_best(): expand()</tspan></text>
+      <text x="436" y="328" fill="#3fb950" font-weight="700">← inspect</text>
+    </g>
+
+    <!-- 346, 364: tail — p<0.15 → opacity 0.25 -->
+    <g fill="#c9d1d9" opacity="0.25">
+      <text x="64" y="346">render_opacity(bands)</text>
+      <text x="64" y="364">hover_to_restore(cursor)</text>
+    </g>
+  </g>
+
+  <!-- priority gutter (p bars per line) -->
+  <g text-anchor="middle">
+    <rect x="24" y="176" width="6" height="9"  fill="#21262d"/>
+    <rect x="24" y="194" width="6" height="9"  fill="#21262d"/>
+    <rect x="24" y="212" width="6" height="9"  fill="#3d444d"/>
+    <rect x="24" y="230" width="6" height="9"  fill="#3d444d"/>
+    <rect x="24" y="248" width="6" height="9"  fill="#58a6ff" opacity="0.6"/>
+    <rect x="24" y="266" width="6" height="9"  fill="#3fb950"/>
+    <rect x="24" y="284" width="6" height="9"  fill="#3fb950"/>
+    <rect x="24" y="302" width="6" height="9"  fill="#3d444d"/>
+    <rect x="24" y="320" width="6" height="9"  fill="#3fb950"/>
+    <rect x="24" y="338" width="6" height="9"  fill="#21262d"/>
+    <rect x="24" y="356" width="6" height="9"  fill="#21262d"/>
+  </g>
+  <text x="27" y="404" text-anchor="middle" fill="#8b949e" font-size="10" font-family="-apple-system, sans-serif">p</text>
+
+  <text x="452" y="404" text-anchor="middle" fill="#8b949e" font-size="11" font-family="-apple-system, sans-serif">faded = low review priority · sharp = inspect · fading is real opacity, colors preserved</text>
+</svg>

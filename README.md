@@ -1,5 +1,7 @@
 # JevCodeReview — Blind Review
 
+![Blind Review banner](assets/banner.svg)
+
 AI writes 1,000 lines, you shouldn't
 have to read 1,000 lines. Instead of "AI code review", this solves the
 **attention allocation problem created by generated code**: Jev estimates
