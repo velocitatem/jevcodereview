@@ -1,5 +1,3 @@
-# JevCodeReview: Blind Review
-
 ![Blind Review banner](assets/banner.svg)
 
 AI writes 1,000 lines, you shouldn't
