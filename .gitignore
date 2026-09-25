@@ -1,0 +1,32 @@
+# --- secrets ---
+.env
+*.env
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- temp snapshots from the editor front-ends ---
+blind-review-*
+*blind-review-*.py
+
+# --- VS Code extension build artifacts ---
+vscode-blind-review/*.vsix
+vscode-blind-review/node_modules/
+vscode-blind-review/package-lock.json
+vscode-blind-review/.vscode-test/
+
+# --- Emacs ---
+*.elc
+# blind-review.el is source, not generated
+!blind-review.el
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+*.swp
+*~

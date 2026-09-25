@@ -1,0 +1,93 @@
+{
+  "name": "blind-review",
+  "displayName": "Blind Review (Jev)",
+  "description": "Semantic code focus: Jev scores which regions of a file deserve human attention, everything else is faded by opacity.",
+  "version": "0.1.2",
+  "publisher": "jev",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "blindreview.review",
+        "title": "Score & Fade Buffer",
+        "category": "Blind Review"
+      },
+      {
+        "command": "blindreview.clear",
+        "title": "Clear Fading",
+        "category": "Blind Review"
+      },
+      {
+        "command": "blindreview.revealAll",
+        "title": "Toggle Reveal All",
+        "category": "Blind Review"
+      },
+      {
+        "command": "blindreview.showPriority",
+        "title": "Show Review Priority Regions",
+        "category": "Blind Review"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "blindreview.review",
+        "key": "ctrl+alt+b",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "blindreview.clear",
+        "key": "ctrl+alt+shift+b",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "blindreview.revealAll",
+        "key": "ctrl+alt+r",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Blind Review",
+      "properties": {
+        "blindreview.scriptPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to review.py (the Jev scoring pipeline). Leave empty to use the one bundled next to this extension."
+        },
+        "blindreview.python": {
+          "type": "string",
+          "default": "python3",
+          "description": "Python interpreter used to run review.py."
+        },
+        "blindreview.workers": {
+          "type": "number",
+          "default": 32,
+          "description": "Concurrent Jev calls (leaf judgments are independent)."
+        },
+        "blindreview.budget": {
+          "type": ["number", "null"],
+          "default": null,
+          "description": "Max Jev queries via branch-and-bound. Empty = score every leaf."
+        },
+        "blindreview.contrast": {
+          "type": "number",
+          "default": 1.75,
+          "minimum": 1.0,
+          "description": "Logit-space contrast stretch around the file baseline. 1.0 = raw probabilities; higher makes important regions pop harder and unimportant fade more."
+        },
+        "blindreview.revealOnCursor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Un-fade the region under the cursor (hover equivalent)."
+        }
+      }
+    }
+  }
+}
