@@ -41,7 +41,7 @@ provably, because bounds never underestimate.
 Probabilities are stretched in logit space around the file's own baseline
 `p₀ = mean(p)`:
 
-$$\operatorname{logit}(p') = \gamma(\operatorname{logit}(p) - \operatorname{logit}(p_0)) + \operatorname{logit}(p_0),\quad \gamma \approx 1.75$$
+$$\mathrm{logit}(p') = \gamma(\mathrm{logit}(p) - \mathrm{logit}(p_0)) + \mathrm{logit}(p_0),\quad \gamma \approx 1.75$$
 
 Monotone ⇒ ordering and bounds unaffected; it only sharpens the visual
 separation (less important fades harder, more important pops more).
